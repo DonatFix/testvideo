@@ -1,0 +1,23 @@
+/* --------------------------------------------- */
+/* -- EM-Layout-Anpassungen Opera -------------- */
+/* --------------------------------------------- */
+*:-o-prefocus, #navi_main ul li a {
+  padding: 0 0.5em;
+  width: 6.95em;
+}
+*:-o-prefocus, #navi_main ul li.sub1-item1 a {
+  padding: 0 0.45em;
+}
+
+*:-o-prefocus, #content .fce_text_mit_bild_verlinkt .fce_container, #content .fce_text_mit_bild_verlinkt .fce_containerlast {
+  width: 21.4em;
+}
+*:-o-prefocus, #content .fce_text_mit_bild_verlinkt .fce_container .image_container, #content .fce_text_mit_bild_verlinkt .fce_containerlast .image_container {
+  width: 21.4em;
+}
+
+*:-o-prefocus, #searchsubmit {
+  height: 2.1em;
+  right: 0.08em;
+  top: 2.86em;
+}

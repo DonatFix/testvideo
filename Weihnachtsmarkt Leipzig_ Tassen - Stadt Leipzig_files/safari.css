@@ -1,0 +1,29 @@
+/* --------------------------------------------- */
+/* -- EM-Layout-Anpassungen Safari ------------- */
+/* --------------------------------------------- */
+#searchstring {
+  padding: 0 7em 0 0;
+}
+
+#searchsubmit {
+  padding-left: 1.5em;
+  height: 2em;
+}
+
+#content .fce_text_mit_bild_verlinkt .fce_container .image_container {
+  width: 21.57em;
+}
+
+#navi_main ul li .mainsub_content ul {
+  background: url("../img/bg_mainnavigation.png") repeat-y scroll 0 0 transparent;
+}
+
+@media (max-width: 991px) {
+  #navi_main ul li .mainsub_content ul {
+    background: none; 
+  }
+}
+
+.font_increased #navi_main ul li .mainsub_content ul {
+  background: none transparent;
+}

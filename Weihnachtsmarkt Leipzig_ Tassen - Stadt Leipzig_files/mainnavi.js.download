@@ -1,0 +1,38 @@
+/*
+** Focus mainnavi
+ */
+
+function closeMainsub() {
+    hideOverlay();
+    jQ('#navi_main li').removeClass('hovered');
+    jQ('#navi_main li').attr('aria-expanded','false');
+    jQ('#navi_main li .mainsub_content').removeClass('show');
+}
+jQ('#navi_main ul > li > a.firstLevel, #navi_main ul > li > a.a-first').on('hover', function(e) {
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == 27) {
+        closeMainsub();
+    };
+});
+
+jQ('#navi_main ul > li > a.firstLevel, #navi_main ul > li > a.a-first').on('keyup', function(e) {
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == 32) {
+        showOverlay();
+        jQ('#navi_main li').removeClass('hovered');
+        jQ('#navi_main li .mainsub_content').removeClass('show');
+        jQ(this).parent().find('.mainsub_content').addClass('show');
+        jQ(this).parent().addClass('hovered');
+        jQ(this).parent().attr('aria-expanded', 'true');
+    };
+    if (keyCode == 27) {
+        closeMainsub();
+    };
+});
+jQ('.mainsub_content a').on('keyup', function(e) {
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == 27) {
+        closeMainsub();
+        jQ(this).parents('.mainsub').children('a.firstLevel').focus();
+    }
+});

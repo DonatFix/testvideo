@@ -1,0 +1,6 @@
+jQuery(document).ready(function () {
+    jQuery('.jump-label').click(function(event) {
+        event.preventDefault();
+        document.location.hash = jQuery(this).prop('hash');
+    });
+});

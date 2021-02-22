@@ -1,0 +1,96 @@
+#content .leipzig-quiz-wrapper {
+    margin-bottom: 2em;
+}
+ul.leipzig-quiz-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left:0;
+}
+ul.leipzig-quiz-list li {
+    position: relative;
+    padding: 10px 0;
+    width: 100%;
+    cursor: pointer;
+}
+ul.leipzig-quiz-list li input[type="radio"],
+ul.leipzig-quiz-list li input[type="checkbox"] {
+    position: absolute;
+    top: 28%;
+    line-height: normal;
+}
+ul.leipzig-quiz-list li input[type="radio"].with-image,
+ul.leipzig-quiz-list li input[type="checkbox"].with-image {
+    top: 50%;
+}
+ul.leipzig-quiz-list li .current {
+    border-top: none;
+    font-size: 1.2em;
+}
+.leipzig-quiz-wrapper .quiz-question-headline {
+    border-bottom: 1px solid #BBB;
+    padding: 0.6em 0 0.4em;
+}
+#content .leipzig-quiz-wrapper input[type="radio"]:focus,
+#content .leipzig-quiz-wrapper input[type="checkbox"]:focus,
+#content .leipzig-quiz-wrapper input[type="submit"]:focus {
+    outline: 4px solid #bd3900;
+}
+#content .leipzig-quiz-wrapper input.hasError {
+    outline: rgb(189, 57, 0) solid 4px;
+}
+#leipzig-quiz-btn {
+    font-weight: 700;
+    float: right;
+    border: 0;
+    background: url(../img/bg_button_submit.png) repeat-x 0 bottom #0b70cd;
+    color: #eeeeee;
+    padding: 0.43em 1em;
+}
+.leipzig-quiz-question-image {
+    margin-bottom: 40px
+}
+.leipzig-quiz-form-item {
+    width: 5%;
+    float: left;
+    min-height: 1px;
+}
+.leipzig-quiz-answer-with-image {
+    width: 38%;
+    float: left;
+    min-height: 1px;
+}
+.leipzig-quiz-answer-text {
+    width: 95%;
+    float: left;
+    min-height: 1px;
+}
+.leipzig-quiz-answer-text.leipzig-quiz-answer-with-image {
+    width: 55%;
+    float: left;
+    margin-left: 2%;
+    min-height: 1px;
+}
+
+@media (max-width: 560px) {
+    .leipzig-quiz-form-item {
+        width: 25px;
+        float: left;
+        min-height: 1px;
+    }
+    .leipzig-quiz-answer-text.leipzig-quiz-answer-with-image {
+        width: calc(85% - 25px);
+        float: left;
+        margin-left: 25px;
+        min-height: 1px;
+    }
+    .leipzig-quiz-answer-text {
+        width: calc(85% - 25px);
+        float: left;
+        min-height: 1px;
+    }
+    .leipzig-quiz-answer-with-image {
+        width: calc(85% - 25px);
+        float: left;
+        min-height: 1px;
+    }
+}

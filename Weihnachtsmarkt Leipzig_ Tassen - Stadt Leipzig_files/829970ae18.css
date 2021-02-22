@@ -1,0 +1,447 @@
+/* default styles for extension "tx_jsfaq" */
+	textarea.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	input.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	.tx-js-faq table {
+		border-collapse:separate;
+		border-spacing:10px;
+	}
+
+	.tx-js-faq table th {
+		font-weight:bold;
+	}
+
+	.tx-js-faq table td {
+		vertical-align:top;
+	}
+
+	.typo3-messages .message-error {
+		color:red;
+	}
+
+	.typo3-messages .message-ok {
+		color:green;
+	}
+
+/* default styles for extension "tx_mkphpids_pi1" */
+        .tx-mkphpids-pi1 { padding:5px; text-align:left; margin:0 0 5px 0; }
+        .tx-mkphpids-pi1 h6 { margin:0; padding:0; font-size:12px; }
+        .tx-mkphpids-pi1 .box { padding:5px; margin:0 0 5px 0; }
+        .tx-mkphpids-pi1 .info { border:1px solid #AACCEE; background-color:#F6FBFF; }
+        .tx-mkphpids-pi1 .ok { border:1px solid #90DE00; background-color:#F3FFDF; }
+        .tx-mkphpids-pi1 .error { border:1px solid #FF0000; background-color:#FFEEEE; font-weight:bold; }
+/* default styles for extension "tx_cssstyledcontent" */
+	/* Headers */
+	.csc-header-alignment-center { text-align: center; }
+	.csc-header-alignment-right { text-align: right; }
+	.csc-header-alignment-left { text-align: left; }
+
+	div.csc-textpic-responsive, div.csc-textpic-responsive * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;  }
+
+	/* Clear floats after csc-textpic and after csc-textpic-imagerow */
+	div.csc-textpic, div.csc-textpic div.csc-textpic-imagerow, ul.csc-uploads li { overflow: hidden; }
+
+	/* Set padding for tables */
+	div.csc-textpic .csc-textpic-imagewrap table { border-collapse: collapse; border-spacing: 0; }
+	div.csc-textpic .csc-textpic-imagewrap table tr td { padding: 0; vertical-align: top; }
+
+	/* Settings for figure and figcaption (HTML5) */
+	div.csc-textpic .csc-textpic-imagewrap figure, div.csc-textpic figure.csc-textpic-imagewrap { margin: 0; display: table; }
+
+	/* Captions */
+	figcaption.csc-textpic-caption { display: table-caption; }
+	.csc-textpic-caption { text-align: left; caption-side: bottom; }
+	div.csc-textpic-caption-c .csc-textpic-caption, .csc-textpic-imagewrap .csc-textpic-caption-c { text-align: center; }
+	div.csc-textpic-caption-r .csc-textpic-caption, .csc-textpic-imagewrap .csc-textpic-caption-r { text-align: right; }
+	div.csc-textpic-caption-l .csc-textpic-caption, .csc-textpic-imagewrap .csc-textpic-caption-l { text-align: left; }
+
+	/* Float the columns */
+	div.csc-textpic div.csc-textpic-imagecolumn { float: left; }
+
+	/* Border just around the image */
+	div.csc-textpic-border div.csc-textpic-imagewrap img {
+		border: 2px solid black;
+		padding: 0px 0px;
+	}
+
+	div.csc-textpic .csc-textpic-imagewrap img { border: none; display: block; }
+
+	/* Space below each image (also in-between rows) */
+	div.csc-textpic .csc-textpic-imagewrap .csc-textpic-image { margin-bottom: 10px; }
+	div.csc-textpic .csc-textpic-imagewrap .csc-textpic-imagerow-last .csc-textpic-image { margin-bottom: 0; }
+
+	/* colSpace around image columns, except for last column */
+	div.csc-textpic-imagecolumn, td.csc-textpic-imagecolumn .csc-textpic-image { margin-right: 10px; }
+	div.csc-textpic-imagecolumn.csc-textpic-lastcol, td.csc-textpic-imagecolumn.csc-textpic-lastcol .csc-textpic-image { margin-right: 0; }
+
+	/* Add margin from image-block to text (in case of "Text & Images") */
+	div.csc-textpic-intext-left .csc-textpic-imagewrap,
+	div.csc-textpic-intext-left-nowrap .csc-textpic-imagewrap {
+		margin-right: 10px;
+	}
+	div.csc-textpic-intext-right .csc-textpic-imagewrap,
+	div.csc-textpic-intext-right-nowrap .csc-textpic-imagewrap {
+		margin-left: 10px;
+	}
+
+	/* Positioning of images: */
+
+	/* Center (above or below) */
+	div.csc-textpic-center .csc-textpic-imagewrap, div.csc-textpic-center figure.csc-textpic-imagewrap { overflow: hidden; }
+	div.csc-textpic-center .csc-textpic-center-outer { position: relative; float: right; right: 50%; }
+	div.csc-textpic-center .csc-textpic-center-inner { position: relative; float: right; right: -50%; }
+
+	/* Right (above or below) */
+	div.csc-textpic-right .csc-textpic-imagewrap { float: right; }
+	div.csc-textpic-right div.csc-textpic-text { clear: right; }
+
+	/* Left (above or below) */
+	div.csc-textpic-left .csc-textpic-imagewrap { float: left; }
+	div.csc-textpic-left div.csc-textpic-text { clear: left; }
+
+	/* Left (in text) */
+	div.csc-textpic-intext-left .csc-textpic-imagewrap { float: left; }
+
+	/* Right (in text) */
+	div.csc-textpic-intext-right .csc-textpic-imagewrap { float: right; }
+
+	/* Right (in text, no wrap around) */
+	div.csc-textpic-intext-right-nowrap .csc-textpic-imagewrap { float: right; }
+
+	/* Left (in text, no wrap around) */
+	div.csc-textpic-intext-left-nowrap .csc-textpic-imagewrap { float: left; }
+
+	div.csc-textpic div.csc-textpic-imagerow-last, div.csc-textpic div.csc-textpic-imagerow-none div.csc-textpic-last { margin-bottom: 0; }
+
+	/* Browser fixes: */
+
+	/* Fix for unordered and ordered list with image "In text, left" */
+	.csc-textpic-intext-left ol, .csc-textpic-intext-left ul { padding-left: 40px; overflow: auto; }
+
+	/* File Links */
+	ul.csc-uploads { padding: 0; }
+	ul.csc-uploads li { list-style: none outside none; margin: 1em 0; }
+	ul.csc-uploads img { float: left; margin-right: 1em; vertical-align: top; }
+	ul.csc-uploads span { display: block; }
+	ul.csc-uploads span.csc-uploads-fileName { text-decoration: underline; }
+
+	/* Table background colors: */
+
+	table.contenttable-color-1 { background-color: #EDEBF1; }
+	table.contenttable-color-2 { background-color: #F5FFAA; }
+	table.contenttable-color-240 { background-color: black; }
+	table.contenttable-color-241 { background-color: white; }
+	table.contenttable-color-242 { background-color: #333333; }
+	table.contenttable-color-243 { background-color: gray; }
+	table.contenttable-color-244 { background-color: silver; }
+/* default styles for extension "tx_ewerkformsmanager" */
+	input.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	.tx-ewerk-formsmanager table {
+		border-collapse:separate;
+		border-spacing:10px;
+	}
+
+	.tx-ewerk-formsmanager table th {
+		font-weight:bold;
+	}
+
+	.tx-ewerk-formsmanager table td {
+		vertical-align:top;
+	}
+/* default styles for extension "tx_ewerkpressrelease" */
+	input.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	.tx-ewerk-pressrelease table {
+		border-collapse:separate;
+		border-spacing:10px;
+	}
+
+	.tx-ewerk-pressrelease table th {
+		font-weight:bold;
+	}
+
+	.tx-ewerk-pressrelease table td {
+		vertical-align:top;
+	}
+/* default styles for extension "tx_pwcomments" */
+	.tx-pwcomment-pi1 h1 {
+		margin-bottom: 8px;
+	}
+
+	.tx-pwcomment-pi1 ol {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.tx-pwcomment-pi1 ol li {
+		background: #e4e4e4;
+		padding: 10px;
+		margin-bottom: 15px;
+		border-radius: 6px;
+		-moz-border-radius: 6px;
+		-webkit-border-radius: 6px;
+	}
+
+	.tx-pwcomment-pi1 ol li.comment {
+		position: relative;
+	}
+
+	.tx-pwcomment-pi1 div.actions {
+		position: absolute;
+		right: 15px;
+		top: 12px;
+	}
+
+	.tx-pwcomment-pi1 div.actions .comment_voting, div.actions .comment_reply {
+		float: left;
+	}
+	.tx-pwcomment-pi1 div.actions .comment_voting {
+		margin-right: 10px;
+	}
+
+	.tx-pwcomment-pi1 .comment-reply div.actions .comment_voting {
+		margin-right: 0;
+	}
+
+	.tx-pwcomment-pi1 div.actions .voting .already_voted {
+		color: #ff8700;
+	}
+
+	.tx-pwcomment-pi1 .votedPositive {
+		color: #009900;
+	}
+
+	.tx-pwcomment-pi1 .votedNegative {
+		color: #990000;
+	}
+
+	.tx-pwcomment-pi1 ol li.highlighted {
+		background: #dddad0;
+	}
+
+	.tx-pwcomment-pi1 ol li div.clear {
+		clear: left;
+		height: 0;
+		font-size: 0;
+		line-height: 0;
+	}
+
+	.tx-pwcomment-pi1 ol li ol {
+		padding-left: 12%;
+		padding-top: 10px;
+	}
+
+	.tx-pwcomment-pi1 ol li ol li {
+		background: #d5d5d5;
+	}
+
+	.tx-pwcomment-pi1 img.comment_author_image {
+		float: left;
+	}
+
+	.tx-pwcomment-pi1 .comment_content_wrap {
+		float: left;
+		padding-left: 15px;
+	}
+
+	.tx-pwcomment-pi1 ol li ol li .comment_content_wrap {
+	}
+
+	.tx-pwcomment-pi1 .comment-reply {
+		position: relative;
+		margin-bottom: 8px;
+		width: auto;
+	}
+
+	.tx-pwcomment-pi1 .last-reply {
+		margin-bottom: 0;
+	}
+
+	.tx-pwcomment-pi1 .comment_body a {
+		color: #333;
+	}
+
+
+	.tx-pwcomment-pi1 .comment_author {
+		font-size: 15px;
+	}
+
+	.tx-pwcomment-pi1 .comment_date, .tx-pwcomment-pi1 .guest {
+		color: #565656;
+		font-size: 11px;
+	}
+
+	.tx-pwcomment-pi1 .comment_header {
+		padding-top: 0px;
+		padding-bottom: 5px;
+	}
+	.tx-pwcomment-pi1 .comment_header a {
+		color: #111;
+		text-decoration: none;
+	}
+
+	.tx-pwcomment-pi1 .comment_body {
+		font-size: 11px;
+		line-height: 16px;
+	}
+
+	#writeComment h3 {
+		padding: 20px 0 8px;
+	}
+
+	#writeComment div.hide_initally {
+		display: none;
+	}
+
+	#writeComment .comment_error {
+		background: #ffd4d4;
+		border: 1px solid #bf2222;
+		color: #bf2222;
+		font-weight: bold;
+		padding: 6px 10px;
+		margin-bottom: 15px;
+	}
+
+	#writeComment label {
+		display: block;
+	}
+
+	#writeComment label span {
+		font-size: 10px;
+		color: #777;
+	}
+	#writeComment label span a {
+		text-decoration: none;
+		color: #777;
+	}
+
+	#writeComment input {
+		font-family: Verdana,Tahoma,Arial,sans-serif;
+		font-size: 15px;
+		width: 66%;
+		padding: 2px;
+		margin-bottom: 14px;
+	}
+
+	#writeComment textarea {
+		width: 100%;
+		line-height: 16px;
+		padding: 5px;
+		font-family: Verdana,Tahoma,Arial,sans-serif;
+		font-size: 11px;
+		margin-bottom: 10px;
+	}
+
+	#writeComment input.button {
+		padding: 2px 10px;
+		margin-bottom: 0;
+		width: auto;
+	}
+
+	#thanksForYourComment, #customMessages {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	#thanksForYourComment li, #customMessages li {
+		background: #ccffcc;
+		border: 1px solid #009900;
+		color: #009900;
+		font-weight: bold;
+		padding: 6px 10px;
+		margin-bottom: 15px;
+	}
+
+	#customMessages li {
+		background: #ffcccc;
+		border-color: #990000;
+		color: #990000;
+	}
+/* default styles for extension "tx_pitsrssnews" */
+	input.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	.tx-pits-rssnews table {
+		border-collapse:separate;
+		border-spacing:10px;
+	}
+
+	.tx-pits-rssnews table th {
+		font-weight:bold;
+	}
+
+	.tx-pits-rssnews table td {
+		vertical-align:top;
+	}
+/* default styles for extension "tx_jbsocialmediaprivacy" */
+	input.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	.tx-jb-socialmediaprivacy table {
+		border-collapse:separate;
+		border-spacing:10px;
+	}
+
+	.tx-jb-socialmediaprivacy table th {
+		font-weight:bold;
+	}
+
+	.tx-jb-socialmediaprivacy table td {
+		vertical-align:top;
+	}
+/* default styles for extension "tx_felogin_pi1" */
+		.tx-felogin-pi1 label {
+			display: block;
+		}
+/* default styles for extension "tx_easyquiz" */
+	textarea.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	input.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	.tx-easyquiz table {
+		border-collapse:separate;
+		border-spacing:10px;
+	}
+
+	.tx-easyquiz table th {
+		font-weight:bold;
+	}
+
+	.tx-easyquiz table td {
+		vertical-align:top;
+	}
+
+	.typo3-messages .message-error {
+		color:red;
+	}
+
+	.typo3-messages .message-ok {
+		color:green;
+	}
+

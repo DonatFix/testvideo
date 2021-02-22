@@ -1,0 +1,224 @@
+var jQ = jQuery.noConflict();
+jQ(document).ready(function () {
+	jQ("#le_cal-event__tx_cal_event-start_date").datepicker({
+		showOn: "both",
+		buttonImage: "/typo3conf/ext/mkleipzig/Resources/Public/img/calendar.png",
+		buttonImageOnly: true,
+		buttonText: "Wählen Sie das Startdatum",
+		dateFormat: "dd.mm.yy",
+		monthNames: ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],
+		dayNames: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag","Samstag"],
+		dayNamesMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
+	});
+
+	jQ("#le_cal-event__tx_cal_event-end_date").datepicker({
+		showOn: "both",
+		buttonImage: "/typo3conf/ext/mkleipzig/Resources/Public/img/calendar.png",
+		buttonImageOnly: true,
+		buttonText: "Wählen Sie das Enddatum",
+		dateFormat: "dd.mm.yy",
+		monthNames: ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],
+		dayNames: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag","Samstag"],
+		dayNamesMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
+	});
+
+	jQ("#le_cal-event__tx_cal_event-start_time").timepicker({
+		timeFormat: "HH:mm",
+		interval: 30,
+		minTime: "7",
+		maxTime: "22",
+		startTime: "7",
+		dynamic: false,
+		dropdown: true,
+		scrollbar: true
+	});
+
+	jQ("#le_cal-event__tx_cal_event-end_time").timepicker({
+		timeFormat: "HH:mm",
+		interval: 30,
+		minTime: "7",
+		maxTime: "22",
+		startTime: "7",
+		dynamic: false,
+		dropdown: true,
+		scrollbar: true
+	});
+
+    jQ("#le_cal-event__newadditionaldate__start_date").datepicker({
+        showOn: "both",
+        buttonImage: "/typo3conf/ext/mkleipzig/Resources/Public/img/calendar.png",
+        buttonImageOnly: true,
+        buttonText: "Wählen Sie das Startdatum",
+        dateFormat: "dd.mm.yy",
+        monthNames: ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],
+        dayNames: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag","Samstag"],
+        dayNamesMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
+    });
+
+    jQ("#le_cal-event__newadditionaldate__end_date").datepicker({
+        showOn: "both",
+        buttonImage: "/typo3conf/ext/mkleipzig/Resources/Public/img/calendar.png",
+        buttonImageOnly: true,
+        buttonText: "Wählen Sie das Enddatum",
+        dateFormat: "dd.mm.yy",
+        monthNames: ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],
+        dayNames: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag","Samstag"],
+        dayNamesMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
+    });
+
+    jQ("#le_cal-event__newadditionaldate__start_time").timepicker({
+        timeFormat: "HH:mm",
+        interval: 30,
+        minTime: "7",
+        maxTime: "22",
+        startTime: "7",
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+
+    jQ("#le_cal-event__newadditionaldate__end_time").timepicker({
+        timeFormat: "HH:mm",
+        interval: 30,
+        minTime: "7",
+        maxTime: "22",
+        startTime: "7",
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+
+	// Event Eingabeformular: Counter Beschreibungsfeld
+    // set counter
+    jQ(".description-counter textarea").attr("maxlength", (jQ("#le_cal-event__description-maxlength").val()));
+    // update counter
+	if (jQ("#le_cal-event .description-counter").length > 0) {
+		jQ(".description-counter textarea").on(
+			"ready change keyup paste",
+			function() {
+				var el = jQ(this), max = el.attr("maxlength"), val = el.val();
+				if (max < val.length) {
+					el.val(val.substr(0, max));
+				}
+				el.next("#counter").text(jQ("#le_cal-event__description-maxlength").data("label") + (max - val.length));
+			}
+		);
+		jQ(".description-counter textarea").trigger("keyup");
+	};
+
+	toggleEnableButton();
+
+	// Pimp the location select boxes!
+	if(jQ("#le_cal-event__tx_cal_event-customlocation_checkbox").is(":checked") == false) {
+        jQ("#le_cal-event__tx_cal_event-location_id").chosen({
+            disable_search_threshold: 2,
+            no_results_text: "Es wurde kein Eintrag gefunden!",
+        });
+    }
+
+	 jQ("#le_cal-event__newadditionaldate__location_id").chosen({
+         disable_search_threshold: 2,
+         no_results_text: "Es wurde kein Eintrag gefunden!",
+     });
+
+    //set red border to make error fields great again
+    if(jQ("#le_cal-event__tx_cal_event-location_id_label").hasClass("hasErrorRequired")) {
+        jQ("#le_cal-event__tx_cal_event-location_id_label").parent('.powermail_fieldwrap').children('.chosen-container').css("border","1px solid #cf0000");
+    }
+
+    jQ(".rdterror.error").each(function(){
+        var elID = jQ(this).attr("for");
+        // set id to error message
+        jQ(this).attr("id",elID+"-error");
+        // set aria-label to error-formfield
+        jQ(this).parent(".powermail_fieldwrap").children("select, textarea, :input:not([type=hidden])").attr("aria-describedby",elID+"-error")
+    })
+
+    // scroll to the top of form, if error message are presented
+    if(jQ(".formidable-rdrstd-label").hasClass("hasErrorRequired")) {
+        jQ('<p class="h1 warning-color">Das Formular wurde nicht korrekt ausgefüllt. <br>Bitte prüfen Sie die rot markierten Felder.</p>').insertBefore('#le_cal-event');
+        jQ("body,html").animate({
+            scrollTop: jQ("#le_cal-event").offset().top -260
+        }, 800);
+    }
+
+    // scroll to the top of bookingplan form, if error message are presented
+    jQ('#booking .powermail_submit').click(function() {
+        if (jQ("#booking .error").length > 0) {
+            jQ("body,html").animate({
+                scrollTop: jQ("form#booking").offset().top -260
+            }, 800);
+        }
+    });
+
+    // add click div to additonal Dates Part
+    jQ('#le_cal-event__additionaldate-add').after('<div id="submit-clickevent-maske"></div>');
+
+    var widthEl = jQ('button.trigger').width();
+    jQ('button.trigger').click(function(){
+        jQ('#le_cal_event__newadditionaldate__location_id_chosen').css('width',widthEl);
+    })
+    if(jQ('#le_cal-event .powermail_fieldset .hasErrorRequired').length) {
+        jQ('.toggle_container').css('display','block')
+        jQ('#le_cal_event__newadditionaldate__location_id_chosen').css('width',widthEl);
+    }
+});
+
+jQ(document).on("change","#le_cal-event__newadditionaldate__start_date", function(){
+	toggleEnableButton();
+    if (jQ("#le_cal-event__newadditionaldate__start_date").val() == "") {
+        //show error tag on field: le_cal-event__newadditionaldate__start_date
+        jQ('.AdditonalsErrorSpan').show();
+        jQ('#le_cal-event__newadditionaldate__start_date').attr('aria-describedby','le_cal-event__newadditionaldate__start_date-error');
+        jQ('#le_cal-event__newadditionaldate__start_date').addClass('hasErrorRequired');
+    } else {
+        jQ('.AdditonalsErrorSpan').remove();
+        jQ('.le_cal-event__newadditionaldate__start_date_wrapper br').remove();
+        jQ('#le_cal-event__newadditionaldate__start_date').removeClass('hasErrorRequired');
+    }
+});
+
+// disable or enable add date button
+function toggleEnableButton() {
+	// disable
+	if (jQ("#le_cal-event__newadditionaldate__start_date").val() == "") {
+		jQ("#le_cal-event__additionaldate-add").prop("disabled", true);
+		jQ("#le_cal-event__additionaldate-add").addClass("disabled", false);
+        //show clickevent maske
+        jQ('#submit-clickevent-maske').show();
+
+	}
+	// enable
+	else {
+		jQ("#le_cal-event__additionaldate-add").prop("disabled", false);
+		jQ("#le_cal-event__additionaldate-add").removeClass("disabled", false);
+        //hide clickevent maske
+        jQ('#submit-clickevent-maske').hide();
+
+	}
+}
+
+// manual reset new date fields after submitting
+jQ(document).on("click","#le_cal-event__additionaldate-add", function(e){
+	jQ("#le_cal-event__newadditionaldate__start_date").val("");
+	jQ("#le_cal-event__newadditionaldate__start_time").val("");
+	jQ("#le_cal-event__newadditionaldate__end_date").val("");
+	jQ("#le_cal-event__newadditionaldate__end_time").val("");
+	jQ("#le_cal-event__newadditionaldate__location_id").val("");
+	jQ("#le_cal-event__newadditionaldate__location_id").trigger("chosen:updated");
+	jQ("#le_cal-event__newadditionaldate__mkroom").val("");
+	toggleEnableButton();
+});
+
+// added error tag to field: le_cal-event__newadditionaldate__start_date
+jQ(document).on("click","#submit-clickevent-maske", function(){
+    if (jQ("#le_cal-event__newadditionaldate__start_date").val() == "") {
+        if(jQ('.AdditonalsErrorSpan').length > 0) {
+
+        } else {
+            jQ('#le_cal-event__newadditionaldate__start_date').attr('aria-describedby','le_cal-event__newadditionaldate__start_date-error');
+            jQ('#le_cal-event__newadditionaldate__start_date').addClass('hasErrorRequired');
+            jQ('.le_cal-event__newadditionaldate__start_date_wrapper img').after('<br><span class="rdterror error tx_cal_event-location_id AdditonalsErrorSpan" for="le_cal-event__newadditionaldate__start_date" id="le_cal-event__newadditionaldate__start_date-error">Bitte wählen Sie einen Veranstaltungsort!</span>');
+        }
+    }
+});

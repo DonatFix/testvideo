@@ -1,0 +1,201 @@
+/* main */
+.simplePollWrap {
+    width: 100%;
+    position: relative;
+    padding: 10px;
+}
+#simplePollVote {
+    font-weight: 700;
+    float: right;
+    border: 0;
+    background: url(../img/bg_button_submit.png) repeat-x 0 bottom #0b70cd;
+    color: #eeeeee;
+    padding: 0.43em 1em;
+}
+.simplePollWrap .simplePollMain ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left:0;
+}
+.simplePollWrap .simplePollMain ul:after {
+    clear: both;
+}
+.simplePollWrap .simplePollMain ul li.simplePollRow {
+    position: relative;
+    border-bottom: 1px solid #BBB;
+}
+.simplePollRow {
+    margin-bottom: 2em;
+    margin-top: 2em;
+}
+.simplePollRadioText {
+    position: relative;
+    top: -2px;
+    width: 100%;
+}
+.simplePollImage img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #BBB;
+}
+.simplePollWrap h2,
+.simplePollWrap h3,
+.simplePollWrap h4,
+.simplePollWrap h5 {
+    padding: 10px 0 0.4em;
+    margin: 0;
+    font-size: 1.4em;
+    border-bottom: 1px solid #BBB;
+}
+.simplePollWrap .headline {
+    padding: 0 0 24px;
+    margin: 16px 0 0;
+}
+/*------------------------------------------------------------------------------------------------------*/
+/* see votes link and page */
+#simplePollSeeVotes {
+    text-decoration: none;
+    padding: 0.43em 1em;
+    font-size: 1em;
+    cursor: pointer;
+    height: auto;
+    margin: 0 1em 0 0;
+    float: right;
+    border: 0.08em solid #adadad;
+    background: url(../img/bg_button_reset.png) repeat-x 0 bottom #eaedf0;
+    color: #676767;
+    border-radius: 4px;
+    font-family: "PT_Sans_Bold", arial, sans-serif;
+}
+.simplePollSeeVotes ul {
+    list-style-type: none;
+    padding-left: 5px;
+    margin-left: 0;
+}
+.simplePollSeeVotes ul li.simplePollRow  {
+    text-indent: 0;
+    margin-left: 0;
+    padding-left: 0;
+}
+.simplePollSeeVotes .simplePollAnswer {
+    margin-bottom: 2px;
+}
+.simplePollWrap .simplePollMain ul li.simplePollRow .simplepollAnswerItem-text ul {
+    margin: 0 0 1em 0;
+    padding-left: 2em;
+    list-style: disc outside;
+}
+/*------------------------------------------------------------------------------------------------------*/
+/* percent bars */
+.simplePollSeeVotes .simplePollPercentText {
+    margin-top: 3px;
+    color: #555;
+}
+.simplePollPercentBarLimiter {
+    width: 75%;
+    height: 0;
+}
+/*limit the overall length of the bars, so we can still fit the percent number behind it*/
+.simplePollPercentBar {
+    border: 1px solid #0856ad;
+    height: 14px;
+    margin-top: 2px;
+    margin-right: 5px;
+    float: left;
+    background-color: #0856ad;
+    border-radius: 2px;
+}
+#content .tx-simplepoll input[type="radio"]:focus,
+#content .tx-simplepoll input[type="submit"]:focus {
+    outline: 4px solid #bd3900;
+}
+#content .tx-simplepoll {
+    margin-bottom: 2em;
+}
+/*------------------------------------------------------------------------------------------------------*/
+/* general */
+.clearfix:after {
+    content: "";
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0;
+}
+.simplePollRadioClass {
+    position: absolute;
+    top: 45%;
+    margin-left: 10px !important;
+}
+.simplePollRow-noImage .simplePollRadioClass {
+    top: 25%;
+}
+.simplepollAnswerItem {
+    padding: 15px 0 15px 40px;
+}
+.simplepollAnswerItem-image {
+    float: left;
+    margin-right: 20px
+}
+.simplepollAnswerItem-text {
+    float: left;
+    width: 60%;
+    font-size: 100%;
+}
+.simplepollAnswerItem-text a {
+    text-decoration: underline !important;
+}
+.simplepollAnswerItem-text a:hover {
+    text-decoration: none !important;
+}
+.simplepollAnswerItem-text-100 {
+    width: 100%;
+}
+.simplePollWrap .simplepollAnswerItem-text .current {
+    font-size: 1.2em;
+    border-top: none;
+    line-height: 1.2em;
+    display: block;
+    padding-top: 0;
+    padding-bottom: 16px;
+    margin-top: 0;
+}
+@media (max-width: 991px) {
+    .simplepollAnswerItem-image img {
+        width: 150px;
+    }
+    .simplepollAnswerItem-text {
+        width: 50%;
+    }
+    .simplepollAnswerItem-text-100 {
+        width: 100%;
+    }
+}
+@media (max-width: 767px) {
+    .simplepollAnswerItem-text {
+        float: inherit;
+        width: 100%;
+    }
+    .simplepollAnswerItem-image {
+        float: inherit;
+        width: 100%;
+    }
+}
+@media (max-width: 330px) {
+    #simplePollSeeVotes,
+    #simplePollVote {
+        float: inherit;
+        display: block;
+        width: 100%;
+        margin: 0;
+        text-align: center;
+    }
+    #simplePollSeeVotes {
+        margin-top: 20px;
+    }
+}
+.simplepoll-data-hide {
+    display: none;
+}

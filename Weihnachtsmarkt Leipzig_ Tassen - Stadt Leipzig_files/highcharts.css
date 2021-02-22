@@ -1,0 +1,57 @@
+.highcharts-axis {
+    font-family: "PT_Sans", arial, sans-serif;
+    color: yellow;
+    font-size:16px;
+    fill: #1e5799;
+    margin-top:30px
+}
+.highcharts-axis-title {
+    fill: #1e5799 !important;
+    color: #1e5799 !important;
+}
+
+.chart-outer {
+    max-width: 800px;
+    margin: 2em auto;
+}
+#container {
+    height: 300px;
+    margin-top: 2em;
+    min-width: 380px;
+}
+.highcharts-data-table table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: white;
+    min-width: 100%;
+    margin-top: 10px;
+    font-family: sans-serif;
+    font-size: 0.9em;
+}
+.highcharts-data-table caption,
+.highcharts-data-table thead {
+    background: url(../img/bg_footer.png) repeat 0 0 #d9dfe7;
+}
+.highcharts-data-table thead > tr > th {
+    border: 1px solid #ddd;
+    border-bottom-width: 2px;
+    padding: 8px;
+    line-height: 1.42857143;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    border: 1px solid #ddd;
+    padding: 0.5em;
+}
+.highcharts-data-table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+.highcharts-data-table caption {
+    font-size: 1.1em;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    border-bottom: 2px solid #ddd;
+    text-align: center
+}
+.highcharts-data-table tbody > tr > td {
+    border: 1px solid #ddd;
+}

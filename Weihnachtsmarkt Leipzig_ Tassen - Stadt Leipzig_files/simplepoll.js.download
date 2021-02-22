@@ -1,0 +1,59 @@
+var jQ = jQuery.noConflict();
+var cookieBlock = '{settings.cookieBlock}';
+
+jQ(document).ready(function() {
+    // hide error message if checkbox is :checked
+    jQ('input[class=simplePollRadioClass]').on('change', function() {
+        jQ('.error').hide();
+        jQ('.simplePollRadioClass').removeAttr('aria-describedby','simplepoll-error-container');
+        jQ('.simplePollRadioClass').css('outline', '0px solid #bd3900');
+        jQ(this).css('outline', '4px solid #bd3900');
+    });
+
+    // this is the ajax override for the vote button
+    jQ('#simplePollVote').on('click', function(e) {
+        if (cookieBlock == '1' || cookieBlock == 'true') {
+            if ( ! navigator.cookieEnabled) {
+                alert('Cookies need to be activated.');
+                return false;
+            }
+        }
+
+        // if no radio button is active, don't do anything
+        if (jQ('input[class=simplePollRadioClass]:checked').length === 0) {
+            jQ("<span id='simplepoll-error-container' class='error'>Bitte treffen Sie eine Auswahl!</span>").insertBefore('#simplePollVote');
+            jQ('.simplePollRadioClass').attr('aria-describedby','simplepoll-error-container');
+            jQ('.simplePollRadioClass').css('outline', '4px solid #bd3900');
+            return false;
+        }
+
+        var form = jQ('#simplePollForm');
+        jQ.post(form.data('ajax-url'), form.serialize(), function(response) {
+            // replace the contents of the simple poll with the view returned from PHP
+            jQ('.simplePollWrap').replaceWith(jQ(response).find('.simplePollWrap'));
+            jQ('body,html').animate({
+                scrollTop: jQ(".tx-simplepoll").offset().top
+            }, 800);
+            jQ('.simplepoll-data-hide').css('display','block')
+        });
+
+        return false;
+    });
+
+    // this is the ajax override for the see votes link
+    jQ('#simplePollSeeVotes').on('click', function(e) {
+        jQ.post(jQ(this).data('ajax-url'), function(response) {
+            // replace the contents of the simple poll with the view returned from PHP
+            jQ('.simplePollWrap').replaceWith(jQ(response).find('.simplePollWrap'));
+            jQ('body,html').animate({
+                scrollTop: jQ(".tx-simplepoll").offset().top
+            }, 800);
+            jQ('.simplepoll-data-hide').css('display','block')
+
+
+        });
+
+        return false;
+    });
+
+});

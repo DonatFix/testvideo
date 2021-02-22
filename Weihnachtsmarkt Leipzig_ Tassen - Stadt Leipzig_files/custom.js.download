@@ -1,0 +1,1537 @@
+var jQ = jQuery.noConflict();
+
+/* --- MAINNAVI --- */
+jQ(document).ready(function () {
+
+    var deviceWidth = jQ(window).width();
+    //show ad content if content was delivered
+    jQuery('div.ad').each(function (index, value) {
+        var divCount = jQuery(this).find('div').length;
+        var tableCount = jQuery(this).find('table').length;
+        if (divCount > 0 || tableCount > 0) {
+            jQuery(this).show();
+        }
+        else {
+            jQuery(this).hide();
+        }
+    });
+
+    // dienstellen öffnungszeiten geöffnetbei nutzung der sprungmakren openinghours
+    jQ('.openinghours a').click(function(){
+        jQ('.openingtrigger').addClass('trigger_active');
+        jQ('.opening-list').css('display','block');
+    });
+
+    //preventDefault() für print btn, da sonst bei klick auf print btn ein reload erfolgt
+    jQ('.print_link').click(function(e){
+      e.preventDefault();
+    });
+
+
+    jQ('#agencyguide-opennow').on('change',function(){
+        jQ('form#agencysearch').submit();
+    });
+
+    jQ('#agencysearchClear').click(function(){
+        jQ('#agencyguide-term').val('');
+        jQ('#agencyguide-opennow').val('');
+    });
+
+
+    //add class to show superbanner if available
+	//add class to show mobilesuperbannerowp if available
+	//add class to show mobilemca if available
+
+    var addSuperbanner = 0
+    var addMobilesuperbannerowp = 0
+    var addMobilemca = 0
+    // superbanner
+    if(jQuery('#adzone div.superbanner div.ad').length == 1) {
+      addSuperbanner = 1
+    }
+    if(jQuery('#adzone div.superbanner div.ad img[alt="noad"]').length == 1) {
+      addSuperbanner = 0
+    }
+    // Superbanner owp
+    if(jQuery('#adzone div.mobilesuperbannerowp div.ad').length == 1) {
+      addMobilesuperbannerowp = 1
+    }
+    if(jQuery('#adzone div.mobilesuperbannerowp div.ad img[alt="noad"]').length == 1) {
+      addMobilesuperbannerowp = 0
+    }
+    // Mobile MCA
+    if(jQuery('#adzone div.mobilemca div.ad').length == 1) {
+      addMobilemca = 1
+    }
+    if(jQuery('#adzone div.mobilemca div.ad img[alt="noad"]').length == 1) {
+      addMobilemca = 0
+    }
+
+    var isSuperbanner = 0;
+    var isMobilesuperbannerowp = 0;
+    var isMobilemca = 0;
+    // superbanner
+    if (addSuperbanner > 0 && (deviceWidth > 1340) ) {
+        if (!jQuery('#pagecontent').hasClass('adzone_1')) {
+            jQuery('#pagecontent').addClass('adzone_1');
+        }
+
+        if (!jQuery('#service-navi-wrapper').hasClass('adzone_1')) {
+            jQuery('#service-navi-wrapper').addClass('adzone_1');
+            var isSuperbanner = 1;
+        }
+
+        if (!jQuery('#header-wrapper').hasClass('adzone_1')) {
+            jQuery('#header-wrapper').addClass('adzone_1');
+            var isSuperbanner = 1;
+        }
+    }
+    // Superbanner owp
+    if (addMobilesuperbannerowp > 0 && (deviceWidth < 1340 && deviceWidth > 728) ) {
+        if (!jQuery('#pagecontent').hasClass('adzone_1')) {
+            jQuery('#pagecontent').addClass('adzone_1');
+        }
+
+        if (!jQuery('#service-navi-wrapper').hasClass('adzone_1')) {
+            jQuery('#service-navi-wrapper').addClass('adzone_1');
+            var isMobilesuperbannerowp = 1;
+        }
+
+        if (!jQuery('#header-wrapper').hasClass('adzone_1')) {
+            jQuery('#header-wrapper').addClass('adzone_1');
+            var isMobilesuperbannerowp = 1;
+        }
+    }
+    // Mobile MCA
+    if (addMobilemca > 0 && (deviceWidth < 467) ) {
+        if (!jQuery('#pagecontent').hasClass('adzone_1')) {
+            jQuery('#pagecontent').addClass('adzone_1');
+        }
+
+        if (!jQuery('#service-navi-wrapper').hasClass('adzone_1')) {
+            jQuery('#service-navi-wrapper').addClass('adzone_1');
+            var isMobilemca = 1;
+        }
+
+        if (!jQuery('#header-wrapper').hasClass('adzone_1')) {
+            jQuery('#header-wrapper').addClass('adzone_1');
+            var isMobilemca = 1;
+        }
+    }
+
+
+    //console.log('isSuperbanner' + isSuperbanner);
+    //console.log('isMobilesuperbannerowp' + isMobilesuperbannerowp);
+    //console.log('isMobilemca' + isMobilemca);
+    // fixed header
+    //var deviceWidth = jQ(window).width();
+    //console.log('deviceWidth' + deviceWidth);
+
+    jQ(window).scroll(function() {
+        var deviceWidth = jQ(window).width();
+        var scrollPos = jQ(window).scrollTop();
+
+        if (deviceWidth > 1340) {
+            //console.log('größer als 1340px');
+            // superbanner exist
+            if(isSuperbanner > 0) {
+                offsetHeader = 174;
+            } else {
+                offsetHeader = 65;
+            }
+        }
+
+        if (deviceWidth < 1340 && deviceWidth > 728) {
+            //console.log('kleiner als 1340px UND größer als 728px');
+            // mobilesuperbannerowp exist
+            if(isMobilesuperbannerowp > 0) {
+                offsetHeader = 174;
+            } else {
+                if (deviceWidth > 990) {
+                    offsetHeader = 65;
+                } else {
+                    if (deviceWidth < 991 && deviceWidth > 767) {
+                        offsetHeader = 35;
+                    } else {
+                        offsetHeader = 35;
+                    }
+                }
+            }
+        }
+
+        if (deviceWidth < 728) {
+            //console.log('kleiner als 728px');
+            // mobilemca exist
+            if(isMobilemca > 0) {
+                offsetHeader = 240;
+            } else {
+                offsetHeader = 35;
+            }
+        }
+
+        if (scrollPos > offsetHeader) {
+            if (jQ('#header-wrapper').hasClass('sticky') == false) {
+                jQ('#header-wrapper').addClass('sticky');
+                jQ('#menu-wrapper').addClass('sticky');
+                jQ('.wrapper').addClass('sticky');
+            }
+        } else {
+            jQ('#header-wrapper').removeClass('sticky');
+            jQ('#menu-wrapper').removeClass('sticky');
+            jQ('.wrapper').removeClass('sticky');
+        }
+    });
+
+    // Panoramaviewer
+    jQ(".panorama").panorama_viewer({
+        repeat: true
+    });
+    // ads in der sidebar
+    jQ('.adSidebar').each(function(){
+        var banner = jQ(this).find('img[alt="noad"]').length;
+        if(banner == 1) {
+            jQ(this).hide();
+        }
+    })
+    // hide links default images
+    jQ('div.ad a[target="noad"]').hide();
+
+    jQ('.tx-jb-csnipper-manager').each(function(){
+        var banner = jQ(this).find('div.ad a[target="noad"]').length;
+        if(banner == 1) {
+            jQ(this).hide();
+        }
+    })
+
+    if(deviceWidth > 768) {
+      function teaserTitle () {
+      var teaserTextHight = jQ(".schwerpunktteaser .teaser-text").outerHeight() + 10,
+        copyRightHeight = jQ(".schwerpunktteaser .textpic-title").outerHeight();
+      jQ(".schwerpunktteaser .textpic-title").css('bottom',teaserTextHight+'px');
+      }
+      jQ(window).resize(function (){
+        teaserTitle();
+      });
+    }
+
+    if(deviceWidth > 992)
+    {
+        /*jQ('#mega-menu > ul').wrap('<div id="navi_main" class="clearfix"></div>');*/
+
+        jQ('.second-level')
+        jQ('.noscript').removeClass('noscript');
+
+        jQ('#navi_main').hoverIntent({
+            over: showOverlay, // function = onMouseOver callback (required)
+            timeout: 250, // number = milliseconds delay before onMouseOut function call
+            out: hideOverlay // function = onMouseOut callback (required)
+        });
+
+        //Hauptnavigation
+        jQ("#navi_main li.mainsub").hoverIntent({
+            over: showNav, // function = onMouseOver callback (required)
+            timeout: 250, // number = milliseconds delay before onMouseOut function call
+            out: hideNav // function = onMouseOut callback (required)
+        });
+        jQ('.sub2-item5').after('<li class="full_width"><span class="break_navigation"></span></li>');
+    } else {
+        // blauer balken im mobile menu
+        jQ('#mega-menu-mobile > div > ul').unwrap('<div id="navi_main_mobile" class="clearfix"></div>');
+        /*
+        jQ('.mobileNavigation').click(function(){
+            jQ('.menu-wrapper').toggleClass('menu-mobile-balken-active');
+            if(jQ('.menu-wrapper').hasClass('menu-mobile-balken-active')){
+                jQ('#menu-close-bottom').show();
+            } else {
+                jQ('#menu-close-bottom').hide();
+            }
+        });
+
+
+        jQ('#navi_main .first-level .mobileOpen').click(function(){
+            if(jQ(this).parent('li').children('.mainsub_content').hasClass('ulOpen')) {
+                jQ(this).parent('li').children('.mainsub_content').removeClass('ulOpen');
+                jQ(this).removeClass('mobileIsOpen');
+                // remove class von a tag
+                jQ(this).parent('li').find('a.a-first').removeClass('a-mobileIsOpen');
+            } else {
+                jQ(this).parent('li').children('.mainsub_content').addClass('ulOpen');
+                jQ(this).addClass('mobileIsOpen');
+                // remove class von a tag
+                jQ(this).parent('li').find('a.a-first').addClass('a-mobileIsOpen');
+            }
+        });
+        jQ('.mainsub_content li .mobileOpen').click(function(){
+            if(jQ(this).parent('li').children('ul').hasClass('ulOpen')) {
+                jQ(this).parent('li').children('ul').removeClass('ulOpen');
+                jQ(this).removeClass('mobileIsOpen');
+                // remove class von a tag
+                jQ(this).parent('li').find('a').removeClass('a-mobileIsOpen');
+            } else {
+                jQ(this).parent('li').children('ul').addClass('ulOpen');
+                jQ(this).addClass('mobileIsOpen');
+                // remove class von a tag
+                jQ(this).parent('li').find('a').addClass('a-mobileIsOpen');
+            }
+        });
+        // mobile menu kein icon anzeigen, wenn keine li -elemente in ul vorhanden
+        // konfigurierbar in seiteneigenschaften (seite anzeigen in 3. ebene)
+        jQ('ul.third-level').each(function() {
+          if(jQ(this).children('li').length > 0) {
+            //ul hat ein li, das passt
+          } else {
+            //ul hat kein li daher:
+            jQ(this).parent('li').children('p.mobileOpen').addClass('ul-has-no-li-element');
+          }
+        });
+
+        */
+        jQ('ul.third-level').each(function() {
+            if(jQ(this).children('li').length > 0) {
+                //ul hat ein li, das passt
+            } else {
+                //ul hat kein li daher:
+                jQ(this).parent('div').children('p.link').addClass('ul-has-no-li-element');
+            }
+        });
+    }
+
+
+    // add classes and divider to gridelement teaserboxen
+    jQ('.fce_text_mit_bild_box .fce_container').parent('div').parent('div').addClass('teaserBox');
+
+
+    jQ('.teaserBoxRahmen-2col').each(function(){
+      jQ(this).find('.teaserBox:odd').addClass('teaserBoxTrenner teaserBoxSec');
+    });
+    jQ('.teaserBoxRahmen-3col').each(function(){
+        jQ(this).children('.teaserBox:nth-of-type(3n)').addClass('teaserBoxTrenner teaserBoxSec');
+        jQ(this).children('.teaserBox:nth-of-type(3n+2)').addClass('teaserBoxTrenner');
+    });
+
+    //jQ('.teaserBoxSec').after('<div class="trenner visible-xs"></div>');
+    jQ('.teaserBox.teaserBoxSec').after('<div class="trenner hidden-xs"></div>');
+
+    //jQ('.teaserBox .teaserboxen').after('<div><div class="trenner visible-xs"></div></div>');
+    //jQ('.teaserBox.teaserBoxSec .teaserboxen').after('<div><div class="trenner hidden-xs"></div></div>');
+
+    // gridelements linkliste content
+    jQ('.fce_linkliste.col-2 ul li:nth-child(2n)').after('<li class="break"></li>');
+    jQ('.fce_linkliste.col-1 ul li:nth-child(1n)').after('<li class="break"></li>');
+
+    // back to top btn
+    function backToTop() {
+        jQ(window).scroll(function () {
+            if (jQ(this).scrollTop() > 400) {
+                jQ('#back-to-top').fadeIn();
+            } else {
+                jQ('#back-to-top').fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        jQ('#back-to-top').click(function () {
+
+            jQ('body,html').animate({
+                scrollTop: 0
+            }, 600);
+            return false;
+        });
+    }
+    backToTop();
+
+    //console.log(jQ('#c28351').height());
+    jQ('.cal_searchresults .Tipp .image_container').before('<div class="image_with_tipp"></div>');
+    jQ('.list-view-cal .Tipp .images').before('<div class="image_with_tipp"></div>');
+
+    // gridelements without header
+    jQ('.noHeadline').parent('div').children(':header').hide();
+    //jQ('.list-view-cal .Tipp .images').parent('a').children('.vevent-text').children('.event-date').css('margin-top','60px');
+
+    jQ('.vevent .Tipp').each(function(){
+      if(jQ(this).children('a').children('.images-wrap').length > 0) {
+
+      } else {
+        jQ(this).children('a').children('.vevent-text').children('.event-date').css('margin-top','50px');
+      }
+    });
+
+    jQ('.cal_title_singleview.Tipp').before('<div class="tipp"></div>');
+    jQ('.sub1-item1 .no-third-level').wrapAll('<li class="no-third-level-elements"><ul></ul></li>');
+    jQ('.sub1-item2 .no-third-level').wrapAll('<li class="no-third-level-elements"><ul></ul></li>');
+    jQ('.sub1-item3 .no-third-level').wrapAll('<li class="no-third-level-elements"><ul></ul></li>');
+    jQ('.sub1-item4 .no-third-level').wrapAll('<li class="no-third-level-elements"><ul></ul></li>');
+    jQ('.sub1-item5 .no-third-level').wrapAll('<li class="no-third-level-elements"><ul></ul></li>');
+    jQ('.sub1-item6 .no-third-level').wrapAll('<li class="no-third-level-elements"><ul></ul></li>');
+    jQ('.second-level-sitemap li:nth-child(3n)').after('<li class="clear"></li>');
+    jQ('.browseLinksWrap span:last-child').not('.activeLinkWrap').addClass('next');
+
+    jQ('.month-medium').each(function () {
+        if (jQ(this).find('thead').length == 1) {
+            return;
+        }
+
+        var weekdays = jQ(this).find('th.weekday').clone();
+        jQ(this).find('thead').first().find('tr').after('<tr class="days"></tr>');
+        jQ(this).find('tr.days').append(weekdays);
+        jQ(this).find('thead').not(':first').remove();
+    });
+
+    jQ('.cal_similar_singleview.otherevents').each(function () {
+        if (jQ(this).children('.cal_eventview_otherevents_item').length < 1) {
+            jQ(this).hide();
+        }
+    });
+
+    jQ('.tagcloud_news').each(function () {
+        if (jQ(this).children('.tagcloud').find('a').length < 1) {
+            jQ(this).hide();
+        }
+    });
+
+    jQ('.sponsor_link').each(function () {
+        var title = jQ(this).attr('title');
+        jQ(this).find('img').attr('title', title);
+    });
+
+    jQ('.imagemap img[usemap]').rwdImageMaps();
+    jQ('.imagemaps-test img[usemap]').rwdImageMaps();
+	// imagemap mapping u responsive ausgabe
+	//jQ('.imagemap div img[usemap]').rwdImageMaps();
+	jQ(function($) {
+	    var maphilight = function() {
+	        $('img[usemap]').maphilight({wrapClass: "map"});
+	    }
+	    $(document).on('ready', maphilight);
+	    // $(window).on('resize', maphilight);
+	});
+    //Imagemap
+    jQ("map area").tooltip();
+    jQ('.imagemap').prepend('<ul class="tabs map_tabs" role="tablist">'+
+    '<li id="tab-cardview" class="tab-cardview active" role="tab" aria-controls="card_tab" aria-selected="true">'+
+    '<a class="card_tab imagemap_map" href="#">Kartenansicht</a></li>'+
+    '<li id="tab-listview" class="tab-listview" role="tab" aria-controls="list_tab" aria-selected="false"><a class="list_tab imagemap_list" href="#">Listenansicht</a></li></ul>');
+    jQ('.area_dropdown').each(function () {
+        var $this = jQ(this);
+        jQ('<h3>Bitte wählen Sie</h3>').prependTo($this);
+    });
+    jQ('.area_dropdown').find('select').addClass('styled');
+    jQ('.area_list').prepend('<h1>Bitte wählen Sie</h1><ul></ul>');
+    jQ('.area_list br').remove();
+    jQ('.area_list a').each(function () {
+        jQ(this).appendTo('.area_list > ul').wrap('<li/>');
+    });
+
+    jQ('#area_button').click(function () {
+        var selectedOption = jQ("#area_select option:selected").attr('value');
+        window.location.href = location.protocol + "//" + location.host + "/" + selectedOption;
+    });
+
+    //Klasse last
+    jQ('.paging.paging-alphabet span').last().addClass('last');
+    jQ('.list-browser .sorting').children().last().addClass('last');
+
+    //Kartenansicht
+    jQ('a.imagemap_map').click(function () {
+        jQ(this).parent().addClass('active');
+        jQ('.imagemap_list').parent().removeClass('active');
+        jQ('.area_list').css('visibility', 'hidden');
+        return false;
+    });
+    //Listenansicht
+    jQ('a.imagemap_list').click(function () {
+        jQ(this).parent().addClass('active');
+        jQ('.imagemap_map').parent().removeClass('active');
+        jQ('.area_list').css('visibility', 'visible');
+        return false;
+    });
+
+    jQ(window).load(function () {
+        var altText = jQ('.imagemap img').not(':first').attr('alt');
+        jQ('.imagemap img').first().attr('alt', altText);
+    })
+
+	/*
+	** mwimagemap, wir bauen die liste bzw das Dropdown zusammen
+	*/
+
+	//jQ('.mwimagemap map').each(function(){
+	if(jQ('.mwimagemap').length > 0){
+		jQ('.mwimagemap').each(function(){
+			var elementID = jQ(this).find('map').attr('id');
+			jQ('#'+elementID).find('area').each(function() {
+				var mapTitle = jQ(this).attr('title');
+				var mapHref = jQ(this).attr('href');
+				jQ('#'+elementID).parent('div').children('.area_list').children('ul').append('<li><a href="'+mapHref+'">'+mapTitle+'</a></li>');
+				jQ('#'+elementID).parent('div').children('.area_dropdown').children('form').children('select').append('<option value="'+mapHref+'">'+mapTitle+'</option>');
+				//jQ('.area_list ul').append('<li><a href="'+mapHref+'">'+mapTitle+'</a></li>');
+				//jQ('.area_dropdown form select').append('<option value="'+mapHref+'">'+mapTitle+'</option>');
+				return;
+			});
+			return;
+		});
+	}
+
+	/*
+	jQ('.mwimagemap map area').each(function() {
+		var mapTitle = jQ(this).attr('title');
+		var mapHref = jQ(this).attr('href');
+		console.log(mapHref);
+		jQ('.area_list ul').append('<li><a href="'+mapHref+'">'+mapTitle+'</a></li>');
+		jQ('.area_dropdown form select').append('<option value="'+mapHref+'">'+mapTitle+'</option>');
+	});
+	*/
+
+
+    //Archivmenue las Selectbox - tt_news
+    if (jQ(".news_amenu_container").length) {
+        //create selectbox
+        jQ(".news_amenu_container").prepend('<select class="archivselect" name="news_amenu" size="1" onchange="window.open(this.options[this.selectedIndex].value,\'_top\')"></select>');
+        var archivlink = jQ(".news_amenu_container li");
+        var select = jQ(".news_amenu_container .archivselect");
+        archivlink.each(function (i) {
+            //create variable for selected option
+            if (jQ(this).hasClass('amenu-act')) {
+                var active = 'selected="selected" ';
+            }
+            else {
+                var active = '';
+            }
+            //create option
+            jQ(this).appendTo(select).wrap(function () {
+                return '<option ' + active + 'value="' + jQ(this).children('a').attr("href") + '">' + jQ(this).children('a').children('span').html() + '</option>';
+            });
+        });
+        //remove all li
+        archivlink.remove();
+        //remove ul
+        jQ(".news_amenu_container ul").remove();
+    }
+
+    /*
+    ** Contentelement Vollbild
+    ** get image width, set figcaption width
+    */
+    function vollbildWidth() {
+        jQuery('.vollbild_wrapper').each(function(){
+            var elWidth = jQuery(this).children('a').children('.image_container').width();
+            jQuery(this).find('.textpic-title').css('width',elWidth);
+        })
+    }
+    vollbildWidth();
+    jQuery( window ).resize(function() {
+       vollbildWidth();
+    });
+
+
+
+    jQuery('.jqfancybox.open').click(function(){
+
+        window.setTimeout(function () {
+                jQuery('.fancybox-close').focus();
+        	}, 400);
+        	return;
+    });
+
+    // Bildergalerie aka Fancybox
+    jQ("a.jqfancybox").fancybox({
+      nextEffect : 'fade',
+      prevEffect : 'fade',
+      maxWidth : 900,
+      tpl: {
+        closeBtn: '<a href="#" title="Close" class="fancybox-item fancybox-close"><span>Galerieansicht schließen ×</span></a>'
+      },
+      afterLoad: function() {
+        this.title = jQ(this.element).attr('data-title');
+        this.copyrightUrl = jQ(this.element).attr('data-copyrighturl');
+        this.copyright = jQ(this.element).attr('data-copyright');
+        this.lizenzUrl = jQ(this.element).attr('data-lizenzurl');
+        this.lizenz = jQ(this.element).attr('data-lizenz');
+
+        var copyC = 0;
+        var lizenzC = 0;
+        // prüfen ob copyright link oder copyright name oder beides vorliegt
+        if(this.copyright) {
+            if(this.copyrightUrl) {
+              if(this.copyrightUrl == this.copyright) {
+                var copyrightItem = '&copy; '+this.copyright;
+                var copyC = 1;
+              } else {
+                var copyrightItem = '&copy; <a class="copy" href="'+this.copyrightUrl+'">'+this.copyright+'</a>';
+                var copyC = 1;
+              }
+            } else {
+              var copyrightItem = '&copy;'+this.copyright;
+              var copyC = 1;
+            }
+        } else {
+          var copyrightItem = '';
+        }
+        // prüfen ob lizenz link oder lizenz name oder beides vorliegt
+        if(this.lizenz) {
+            if(this.lizenzUrl) {
+              if(this.lizenz == this.lizenzUrl) {
+                var lizenzItem = this.lizenz;
+                var lizenzC = 1;
+              } else {
+               var lizenzItem = '<a class="lizenz" href="'+this.lizenzUrl+'">'+this.lizenz+'</a>';
+               var lizenzC = 1;
+            }
+          } else {
+            var lizenzItem = this.lizenz;
+            var lizenzC = 1;
+          }
+        } else {
+          var lizenzItem = '';
+        }
+
+        if(copyC && lizenzC == 1) { // prüfen ob copyright und lizenz ausgabe erfolgt,
+          var ausgabeKomma = ', '; //wenn ja, komma als trenner ausgeben
+        } else {
+          var ausgabeKomma = '';
+        }
+        this.title = '<div class="wrap-first-line clearfix"><div class="lizenz-copyright-slider">'+ copyrightItem + ausgabeKomma + lizenzItem+'</div><div class="fancybox-custom-navigation"><p class="inner-prev">vorheriges Bild</p> <div class="sliderPager"> Bild ' + (this.index + 1) + ' von '+this.group.length+'</div><p class="inner-next">nächstes Bild</p></div></div><div class="wrap-secound-line"><figcaption class="slider-title">'+this.title + '</figcaption></div>';
+
+        },
+        beforeShow : function() {
+            // added alt-tag from origin image to fancybox-image
+            var alt = this.element.parent('li').find('img').attr('alt');
+            this.inner.find('img').attr('alt', alt);
+        },
+        helpers : {
+          title: {
+              type: 'outside'
+          },
+          overlay : {
+              css : {
+                  'background' : 'rgba(0,0,0,0.8)'
+              }
+          }
+      },
+      defaults: {
+        maxWidth : 1200,
+        maxHeight: 800
+      }
+    });
+    // custom prev btn
+    jQ('body').on('click','.inner-prev',function(){
+        jQ.fancybox.prev();
+    });
+    // custom next btn
+    jQ('body').on('click','.inner-next',function(){
+        jQ.fancybox.next();
+    });
+
+    //multiselect Buergereinwand Formular
+    jQ('#powermail_field_einwand').multiselect({
+        nonSelectedText: 'Bitte wählen!',
+        buttonWidth: '100%',
+        maxHeight: 300,
+        dropLeft: true,
+        nSelectedText: 'ausgewählt'
+    });
+
+    jQ('#le_cal-event__tx_cal_event-category_ids').multiselect({
+        nonSelectedText: 'Bitte wählen!',
+        buttonWidth: '100%',
+        maxHeight: 300,
+        dropLeft: true,
+        nSelectedText: 'ausgewählt',
+        // triggered when the multiselect is finished initializing
+        onInitialized: function(select, container) {
+            // if field has a active error class
+            if(jQ('#le_cal-event__tx_cal_event-category_ids').hasClass('hasError')) {
+                jQ('#le_cal-event__tx_cal_event-category_ids').parent('span').css('border','1px solid #cf0000');
+            }
+        }
+    });
+
+    // search for english date format and substitude it with the german one
+    jQuery('.lepurpose-single-item .news_text p').each(function(){
+        var dataOrderValue = jQuery(this).html();
+        if(dataOrderValue !== undefined){
+            // check if value is a english date
+            if(String(dataOrderValue).match(/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/)){
+                var dateArr = String(dataOrderValue).split('-');
+                var germanDate = dateArr[2] + '.' + dateArr[1] + '.' + dateArr[0];
+               jQuery(this).html(germanDate);
+           }
+        }
+    });
+
+    jQ(".datePickerButton").datepicker({
+        showOn: "both",
+        buttonImage: "/typo3conf/ext/mkleipzig/Resources/Public/img/calendar.png",
+        buttonImageOnly: true,
+        buttonText: "Wählen Sie das Startdatum",
+        dateFormat: "dd.mm.yy",
+        monthNames: ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],
+        dayNames: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag","Samstag"],
+        dayNamesMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
+    });
+
+
+    //set language for datepicker
+    if(jQuery('html').attr('lang') == 'en') {
+        jQuery('.datepicker').datepicker( jQuery.datepicker.regional[ "en-GB" ] );
+    } else {
+        jQuery('.datepicker').datepicker( jQuery.datepicker.regional[ "de" ] );
+    }
+
+    jQuery('.datepicker').not('.searchform-option .datepicker').datepicker({
+        dateFormat: "dd.mm.yy",
+        firstDay: 1,
+    }).change(function() {
+        if(jQuery('#event_start_day').datepicker('getDate') > jQuery('#event_end_day').datepicker('getDate')) {
+            var fromDate = jQuery('#event_start_day').datepicker('getDate');
+            jQuery('#event_end_day').datepicker('setDate',new Date(fromDate.getFullYear(),fromDate.getMonth(), fromDate.getDate() + 0));
+        }
+    });
+
+    jQuery('.tx_powermail_pi1_fieldwrap_html.asDate input').datepicker({
+        dateFormat: "dd.mm.yy",
+        firstDay: 1,
+    });
+
+    jQuery('.searchform-option .datepicker')    .datepicker({
+        dateFormat: "dd.mm.yy",
+        firstDay: 1,
+        defaultDate: +1,
+        showOn: "both"
+    });
+
+    jQuery('.loadMyContentWithAjax').each(function(index, element) {
+        var url = jQuery(element).data('contentUrl');
+        jQuery.ajax({
+            url: url,
+            dataType: "html",
+            success: function(htmlResult) {
+                jQuery(element).html(htmlResult);
+            },
+        });
+    });
+
+    // hide empty News/Event lists
+    hideEmptyNewsEventLists();
+});
+
+function hideEmptyNewsEventLists() {
+    // hide empty News/Event lists
+    if (jQ('div.news').length || jQ('div.tx-cal-controller').length) {
+        jQ('div.news').each(function() {
+            if (jQ(this).children().length === 0) {
+                jQ(this).parent('div').hide();
+            }
+        });
+        jQ('div.tx-cal-controller').each(function() {
+            if (jQ(this).text().trim() === 'Keine Ereignisse gefunden.') {
+                jQ(this).parent('div').hide();
+            }
+        });
+    }
+}
+
+jQ("a.jqfancybox-solo").fancybox({
+  nextEffect : 'fade',
+  prevEffect : 'fade',
+  maxWidth : 900,
+  tpl: {
+    closeBtn: '<div title="Close" class="fancybox-item fancybox-close"><span>Schließen ×</span></div>'
+  },
+
+  afterLoad: function() {
+
+    var description = jQ(this.element).parent().children('.textpic-title').html();
+    if(description == undefined) {
+        this.description = '';
+    } else {
+      this.description = jQ(this.element).parent().children('.textpic-title').html();
+    }
+
+    this.title = '<div style="padding:1em 0.1em 1em 0.2em;" class="wrap-secound-line"><figcaption class="slider-title">'+this.description + '</figcaption></div>';
+    // when fancybox is loaded, set tabfocus
+    //
+  },
+  afterShow: function(){
+    jQ('.fancybox-close').attr("tabindex",1).focus();
+
+    jQ('.slider-title a').each(function(){
+        var count = 2;
+        jQ(this).attr("tabindex",count);
+    })
+  },
+    beforeShow : function() {
+        // added alt-tag from origin image to fancybox-image
+        var alt = this.element.find('img').attr('alt');
+        this.inner.find('img').attr('alt', alt);
+    },
+  helpers : {
+      title: {
+          type: 'outside'
+      },
+      overlay : {
+          css : {
+              'background' : 'rgba(0,0,0,0.8)'
+          }
+      }
+  },
+  defaults: {
+    maxWidth : 1200,
+    maxHeight: 800
+  },
+  keys  : {
+    next : {
+        34 : 'up',   // page down
+        39 : 'left', // right arrow
+        40 : 'up'    // down arrow
+    },
+    prev : {
+        33 : 'down',   // page up
+        37 : 'right',  // left arrow
+        38 : 'down'    // up arrow
+    },
+    close  : [13,27], // escape key
+    play   : [32], // space - start/stop slideshow
+    toggle : [70]  // letter "f" - toggle fullscreen
+  },
+  beforeClose : function(){
+      jQ('a.jqfancybox-solo').eq(this.index).focus();
+  }
+
+});
+
+//Accordion-Funktion
+jQ(function () {
+    if(jQ('.fce_accordion div').children().length != 0 ) {
+        jQ('.fce_accordion').before('<div class="accordeon_ctrl"><a href="#" class="open_all" title="Alles anzeigen">Alles anzeigen</a> / <a href="#" class="close_all" title="Alles schließen">Alles schließen</a></div>');
+    }
+    if (jQ('.toggle_container').length) {
+        jQ('.toggle_container').hide();
+        jQ('.trigger').click(function () {
+            var trig = jQ(this);
+            if (trig.hasClass('trigger_active')) {
+                trig.parent().removeClass('dt-active');
+                trig.parent().next('.toggle_container').slideToggle('slow');
+                trig.parent().next('.toggle_container').prop('hidden', 'hidden');
+                trig.attr('aria-expanded','false');
+                trig.removeClass('trigger_active');
+                trig.attr('title', 'Alle anzeigen');
+                trig.parent('.special-item').removeClass('active');
+
+            } else {
+                trig.parent().next('.toggle_container').slideToggle('slow');
+                trig.parent().addClass('dt-active');
+                trig.addClass('trigger_active');
+                trig.attr('aria-expanded','true');
+                trig.attr('title', 'Alle schließen');
+                trig.parent().next('.toggle_container').prop('hidden', '');
+                trig.parent('.special-item').addClass('active');
+            }
+            ;
+            return false;
+        });
+        jQ('.toggle_head').click();
+        jQ('.toggle_all').click(function () {
+            var toggle_all = jQ('.tx-irfaq-dynheader.trigger');
+            toggle_all.addClass('trigger_active');
+        });
+
+
+        jQ('.open_all').click(function () {
+            var $this = jQ(this);
+            var toggle_all_fce = $this.parent().next('.fce_accordion').find('.trigger');
+            toggle_all_fce.addClass('trigger_active');
+            toggle_all_fce.parent().addClass('dt-active');
+            toggle_all_fce.attr('aria-expanded','true');
+            toggle_all_fce.parent().next('.toggle_container').slideDown('slow');
+            toggle_all_fce.parent().next('.toggle_container').prop('hidden', '');
+            if (toggle_all_fce.hasClass('trigger_active')) {
+                toggle_all_fce.parent('.special-item').addClass('active');
+            }
+            return false;
+        });
+        jQ('.close_all').click(function () {
+            var $this = jQ(this);
+            var toggle_all_fce = $this.parent().next('.fce_accordion').find('.trigger_active');
+            toggle_all_fce.removeClass('trigger_active');
+            toggle_all_fce.parent().removeClass('dt-active');
+            toggle_all_fce.attr('aria-expanded','false');
+            toggle_all_fce.parent().next('.toggle_container').slideUp('slow');
+            toggle_all_fce.parent().next('.toggle_container').prop('hidden', 'hidden');
+            toggle_all_fce.parent('.special-item').removeClass('active');
+            return false;
+        });
+        // add focus to accordion
+
+        // open all accordeon items if class="accordeonOpened" is set (e.g. Plugin Behördensuche)
+        function openAccWithoutClick() {
+            if(jQ('.accordeonOpened').length > 0) {
+                jQ('.open_all').click();
+            }
+        }
+        openAccWithoutClick();
+    }
+    ;
+    jQ('.fce_accordion div .trigger').on('keyup', function(e){
+        var keyCode = e.keyCode || e.which;
+        if(keyCode == 13){
+            //var el = jQ(this).children('a').attr('class').split(' ')[0];
+            //jQ('#'+el + ' a').first('a').focus();
+        }
+        // Key arrow top focus next accordion element
+        if(keyCode == 38){
+            var thisUID = jQ(this).attr('id').split('-')[1];
+            var thisNo = jQ(this).attr('id').split('-')[0];
+            var nextNo = thisNo--
+            //console.log(thisNo);
+            jQ('#'+thisNo+'-'+thisUID).focus();
+        }
+        // Key arrow down focus prev accordion element
+        if(keyCode == 40){
+            var thisUID = jQ(this).attr('id').split('-')[1];
+            var thisNo = jQ(this).attr('id').split('-')[0];
+            var nextNo = thisNo++
+            //console.log(thisNo);
+            jQ('#'+thisNo+'-'+thisUID).focus();
+        }
+    });
+
+    // anpassen der ids und aria attr für accordeons die nicht via for viewhelper erstellt werden
+    var elementUID = jQ('.accordionJS').attr('id');
+    jQ('.accordionJS .trigger').each(function(i){
+        var id = ++i
+        //console.log(id);
+        jQ(this).attr('id',id+'-'+elementUID)
+        jQ(this).attr('aria-controls', elementUID +'-'+id);
+    });
+    jQ('.accordionJS .toggle_container').each(function(i){
+        var id = ++i
+        //console.log(id);
+        jQ(this).attr('aria-labelledby',id+'-'+elementUID)
+        jQ(this).attr('id', elementUID +'-'+id);
+    });
+
+    function setAriaLevelToAccordeonHeader() {
+        var headlineType = jQ('.getAriaLevel').attr('data-aria');
+        jQ('.getAriaLevel').each(function(){
+            jQ(this).children('div').children('.acc-headline').attr('aria-level',headlineType)
+        })
+    }
+    setAriaLevelToAccordeonHeader();
+    //if click outside from menu, close menu
+    jQ(document).click( function(){
+        jQ('.mainsub_content').removeClass('show');
+    });
+
+    //change h3 to 3 in accordeon
+    jQ('div[role="heading"]').each(function(){
+        if(jQ(this).attr('aria-level') == 'h3') {
+            jQ(this).attr('aria-level','3');
+        }
+    })
+
+
+
+
+    //Navi Language
+    jQ('#navi_language .dropdown').click(function (a) {
+        a.preventDefault();
+        jQ(this).attr('aria-expanded','true');
+        jQ(this).css('z-index','10000');
+        jQ(this).next('ul').css('display', 'block');
+    });
+
+    jQ('#navi_language .dropdown').focus(function () {
+        jQ(this).attr('aria-expanded','true');
+        jQ(this).next('ul').css('display', 'block');
+        jQ(this).css('z-index','10000');
+    });
+
+    var focusoutcount = 0;
+    jQ('#navi_language').focusout(function () {
+        focusoutcount++;
+        if (focusoutcount == 3) {
+            jQ('#navi_language ul').removeAttr('style');
+            jQ('#navi_language .dropdown').attr('aria-expanded','false');
+            focusoutcount = 0;
+        }
+        ;
+    });
+    jQ("#navi_main ul > li > a.firstLevel").contextmenu(function() {
+        //hideOverlay();
+        jQ('#navi_main li .mainsub_content').removeClass('show');
+    });
+});
+
+//COOKIE Functions
+function set_cookie(my_cookie, value, days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        var expires = "; expires=" + date.toGMTString();
+    }
+    else expires = ""
+    document.cookie = my_cookie + "=" + value + expires + "; path=/";
+}
+
+function read_cookie(my_cookie) {
+    var my_cookie_eq = my_cookie + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(my_cookie_eq) == 0) {
+            return c.substring(my_cookie_eq.length, c.length);
+        }
+    }
+    return null
+}
+
+function delete_cookie(my_cookie) {
+    set_cookie(my_cookie, "", -1);
+}
+
+//PLUGIN: hoverIntent (don't touch it!)
+(function ($) {
+    $.fn.hoverIntent = function (f, g) {
+        // default configuration options
+        var cfg = {
+            sensitivity: 7,
+            interval: 100,
+            timeout: 0
+        };
+        // override configuration options with user supplied object
+        cfg = $.extend(cfg, g ? { over: f, out: g } : f);
+
+        // instantiate variables
+        // cX, cY = current X and Y position of mouse, updated by mousemove event
+        // pX, pY = previous X and Y position of mouse, set by mouseover and polling interval
+        var cX, cY, pX, pY;
+
+        // A private function for getting mouse position
+        var track = function (ev) {
+            cX = ev.pageX;
+            cY = ev.pageY;
+        };
+
+        // A private function for comparing current and previous mouse position
+        var compare = function (ev, ob) {
+            ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
+            // compare mouse positions to see if they've crossed the threshold
+            if (( Math.abs(pX - cX) + Math.abs(pY - cY) ) < cfg.sensitivity) {
+                $(ob).unbind("mousemove", track);
+                // set hoverIntent state to true (so mouseOut can be called)
+                ob.hoverIntent_s = 1;
+                return cfg.over.apply(ob, [ev]);
+            } else {
+                // set previous coordinates for next time
+                pX = cX;
+                pY = cY;
+                // use self-calling timeout, guarantees intervals are spaced out properly (avoids JavaScript timer bugs)
+                ob.hoverIntent_t = setTimeout(function () {
+                    compare(ev, ob);
+                }, cfg.interval);
+            }
+        };
+
+        // A private function for delaying the mouseOut function
+        var delay = function (ev, ob) {
+            ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
+            ob.hoverIntent_s = 0;
+            return cfg.out.apply(ob, [ev]);
+        };
+
+        // A private function for handling mouse 'hovering'
+        var handleHover = function (e) {
+            // copy objects to be passed into t (required for event object to be passed in IE)
+            var ev = jQuery.extend({}, e);
+            var ob = this;
+
+            // cancel hoverIntent timer if it exists
+            if (ob.hoverIntent_t) {
+                ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
+            }
+
+            // if e.type == "mouseenter"
+            if (e.type == "mouseenter") {
+                // set "previous" X and Y position based on initial entry point
+                pX = ev.pageX;
+                pY = ev.pageY;
+                // update "current" X and Y position based on mousemove
+                $(ob).bind("mousemove", track);
+                // start polling interval (self-calling timeout) to compare mouse coordinates over time
+                if (ob.hoverIntent_s != 1) {
+                    ob.hoverIntent_t = setTimeout(function () {
+                        compare(ev, ob);
+                    }, cfg.interval);
+                }
+
+                // else e.type == "mouseleave"
+            } else {
+                // unbind expensive mousemove event
+                $(ob).unbind("mousemove", track);
+                // if hoverIntent state is true, then call the mouseOut function after the specified delay
+                if (ob.hoverIntent_s == 1) {
+                    ob.hoverIntent_t = setTimeout(function () {
+                        delay(ev, ob);
+                    }, cfg.timeout);
+                }
+            }
+        };
+
+        // bind the function to the two event listeners
+        return this.bind('mouseenter', handleHover).bind('mouseleave', handleHover);
+    };
+})(jQuery);
+
+/*Tab Funktion*/
+function switch_tabs(index) {
+    var tab = jQ(".tabborder .tabs").find("a").eq(index);
+    jQ(".tabborder .tabsystem").animate({opacity: "hide"}, 1);
+    jQ(".tabborder .tabsystem").attr('aria-hidden','true');
+    jQ(".tabborder .tabs").find("a").removeClass("selected");
+    jQ(".tabborder .tabs").find("li").attr('aria-selected','false');
+    var id = tab.attr("class");
+    jQ("#" + id).animate({opacity: "show"}, 1);
+    jQ("#" + id).attr('aria-hidden','false');
+    tab.addClass("selected");
+    tab.parent('li').attr('aria-selected','true');
+}
+
+jQ(document).ready(function () {
+    if (jQ(".tabsystem").length) {
+        //create tabs out of each CE headline
+        jQ(".tabborder").prepend('<ul class="tabs clearfix" role="tablist"></ul><div class="clear"></div>');
+        var widgettitle = jQ(".tabsystem p.tabheadline");
+        var tabs = jQ(".tabborder .tabs");
+        widgettitle.each(function (i) {
+            var parentid = jQ(this).parent(".tabsystem").attr("id");
+            jQ(this).appendTo(tabs).wrap(function () {
+                return '<li role="tab" id="tab-'+ parentid +'" aria-controls="'+ parentid +'"><a href="#" class="' + parentid + '" title="' + jQ(this).html() + '"><p>' + jQ(this).html() + '</p></a></li>';
+            });
+        });
+        widgettitle.remove();
+        //ID of current tabsystem (each tabsystem gets his own cookie)
+        var tabborderID = jQ('.tabborder').attr('id');
+        //click event for tabs
+        tabs.find("a").click(function (e) {
+            $this = jQ(this);
+            e.preventDefault();
+            //get index of current tab
+            var tabindex = $this.index('#' + tabborderID + ' .tabs a');
+            //switch to clicked tab
+            switch_tabs(tabindex);
+            //update cookie with current index
+            set_cookie(tabborderID, tabindex, 1);
+        });
+        if (read_cookie(tabborderID) != null) {
+            //if cookie does exist read cookie and activate current tab
+            switch_tabs(read_cookie(tabborderID));
+        } else {
+            //if no or empty cookie: write cookie and active first tab
+            set_cookie(tabborderID, 0, 1);
+            switch_tabs(0);
+        }
+    }
+    // add tabfocus to active tabsystem when use enter key
+    jQ('.tabs li').on('keyup', function(e){
+        var keyCode = e.keyCode || e.which;
+        if(keyCode == 13){
+            //tabsystem imagemap
+            if(jQ(this).hasClass('.tab-listview')) {
+                jQ('.area_list a').focus();
+            } else {
+                var el = jQ(this).children('a').attr('class').split(' ')[0];
+                jQ('#'+el + ' a').first('a').focus();
+            }
+        }
+        // Key arrow right focus next tab li element
+        if(keyCode == 39){
+            jQ(this).next().find('a').focus();
+            jQ(".tabborder .tabs").find("li").attr('aria-selected','false');
+            jQ(this).next().attr('aria-selected','true');
+        }
+        // Key arrow left focus prev tab li element
+        if(keyCode == 37){
+            jQ(this).prev().find('a').focus();
+            jQ(".tabborder .tabs").find("li").attr('aria-selected','false');
+            jQ(this).prev().attr('aria-selected','true');
+        }
+    });
+    jQ('.btnToggleAutoplay').click(function () {
+        $this = jQ(this);
+        if ($this.hasClass('play')) {
+            $this.removeClass('play');
+            $this.attr('title', 'Autoplay pausieren');
+        } else {
+            $this.addClass('play');
+            $this.attr('title', 'Autoplay starten');
+        }
+    });
+
+    jQ('.leipzig-news-slider').flexslider({
+        animation: "slide",
+        animationLoop: false,
+        //itemWidth: 854,
+        animationSpeed: 600,
+        directionNav: true,
+        pausePlay: false,
+        slideshow: true,
+        slideshowSpeed: 7000,
+        pauseText: "Pause",
+        playText: "Abspielen",
+        prevText: "vorheriges Bild",
+        nextText: "nächstes Bild"
+    });
+
+    var leipzigNewSliderLinks = jQ('.leipzig-news-slider .flex-control-paging li a');
+    for (var i = 0; i < leipzigNewSliderLinks.length; ++i) {
+        leipzigNewSliderLinks.eq(i).text(jQ('.leipzig-news-slider .teaser h2').eq(i).text());
+        leipzigNewSliderLinks.eq(i).attr('href',jQ('.leipzig-news-slider .teaser figure').parent('a').eq(i).attr('href'));
+        //alert(jQ('.leipzig-news-slider .teaser a').eq(i).attr('href'));
+    }
+    setTimeout(function(){
+        var heightImageNewsSlider = (jQ('.leipzig-news-slider .slides').outerHeight())-(jQ('.leipzig-news-slider .slides .copyright').outerHeight())-50;
+      jQ('.flex-direction-nav, .flex-pauseplay').css('top',heightImageNewsSlider);
+
+      function navigallery(){
+        jQuery( window ).resize(function() {
+          var heightImageNewsSlider = (jQ('.leipzig-news-slider .slides').outerHeight())-(jQ('.leipzig-news-slider .slides .copyright').outerHeight())-50;
+          jQ('.flex-direction-nav, .flex-pauseplay').css('top',heightImageNewsSlider);
+        });
+      }
+      navigallery();
+
+    }, 1000);
+    jQ('.flex-pause').click(function(){
+        jQ('.flex-pause').css('display','none');
+        jQ('.flex-play').css('display','block');
+        jQ('.leipzig-news-slider').flexslider('pause')
+    });
+    jQ('.flex-play').click(function(){
+        jQ('.flex-pause').css('display','block');
+        jQ('.flex-play').css('display','none');
+        jQ('.leipzig-news-slider').flexslider('play')
+    });
+
+    // wenn keine metadaten im newslsideritem, dann ausgabe des kommas entfernen
+    jQ('.news-coverflow-container ul li .rights').each(function(){
+      if(jQ(this).children('.copyright').length > 0) {
+      } else {
+        jQ('.coverflow-comma-newsslider').hide();
+      }
+    });
+
+    jQ('a.up_link').click(function () {
+        jQ('body,html').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+
+    //parsley für powermail error meldungen anpassen (markup)
+    if(jQ('.tx-powermail').length) {
+        var parsleyConfig = {
+            errorsWrapper: '<div class="parsley-errors-list"></div>',
+            errorTemplate: '<span class="leipzig-form-error"></span>'
+        };
+        jQ(".tx-powermail form").parsley(parsleyConfig);
+    }
+
+    function getGridSize() {
+		    var $items = 5;
+
+  		if (
+    			(window.innerWidth < 480) ||
+    			(window.innerWidth >= 480 && window.innerWidth < 768)
+  		){
+  			$items = 1;
+  		}
+  		else if (
+    			(window.innerWidth >= 768 && window.innerWidth < 960)
+  		) {
+  			$items = 2
+  		}
+  		else if (window.innerWidth >= 960 && window.innerWidth < 1200) {}
+  		else if (window.innerWidth >= 1200) {}
+
+  		return $items;
+  	}
+
+
+    jQuery(window).load(function(){
+        if(jQuery('.flexsliderGallery ul').find('li').length > 1 ) {
+            /// Ablösung Galerie
+            jQuery('.carouselGallery .carousel').flexslider({
+                animation: "slide",
+                controlNav: false,
+                animationLoop: false,
+                slideshow: false,
+                itemWidth: 95,
+                itemMargin: 15,
+                prevText: '',
+                nextText: '',
+                minItems: getGridSize(),
+                maxItems: getGridSize(),
+                asNavFor: '.flexsliderGallery',
+                directionNav: true,
+            });
+
+            setTimeout(function () {
+                jQuery('.flexsliderGallery').flexslider({
+                    animation: "fade",
+                    controlNav: true,
+                    animationLoop: false,
+                    slideshow: false,
+                    sync: ".carouselGallery .carousel",
+                    smoothHeight: false,
+                    directionNav: true,
+                });
+                jQuery('.flexsliderGallery .flex-control-paging').wrap('<div class="sliderPager"></div>');
+                jQuery('.sliderPager').prepend('<span class="marginPager">Bild</span>');
+                jQuery('.flexsliderGallery').each(function(){
+                	var pagerItems = jQuery(this).find('.flex-control-paging li').length;
+                	jQuery(this).find('.sliderPager').append('<span>von ' + pagerItems + '</span>');
+                });
+
+
+                jQuery('.carouselGallery .carousel').hide();
+
+                // Anpassung Position btn für fancyboy start
+                jQuery('.flexsliderGallery').each(function() {
+                    var heightGallery = jQuery(this).parent('.flexsliderGalleryWrap').height();
+                    jQuery(this).find('a.open').css('top', heightGallery-9);
+                });
+                function heightgallery(){
+                  jQuery( window ).resize(function() {
+                    jQuery('.flexsliderGallery').each(function(){
+                        var heightGallery = jQuery(this).parent('.flexsliderGalleryWrap').height();
+                        jQuery(this).find('a.open').css('top', heightGallery-9);
+                    });
+                  });
+                }
+                heightgallery();
+            }, 500);
+
+            jQuery('.carouselGallery').prepend('<a class="carouselBtn" title="Vorschau einblenden" href="#"><img src="/typo3conf/ext/mkleipzig/Resources/Public/img/thumbnails.png" alt="Vorschau öffnen" title="Vorschau öffnen" />Vorschau</a>');
+            jQuery('.carouselGallery .carouselBtn').click(function () {
+                if (jQuery(this).hasClass('active')) {
+                    jQuery('.carouselGallery .carousel').hide();
+                    jQuery(this).removeClass('active');
+                    jQuery(this).html('<img alt="Vorschau öffnen" title="Vorschau öffnen" src="/typo3conf/ext/mkleipzig/Resources/Public/img/thumbnails.png" />Vorschau');
+                    jQuery('.carousel-arrow').remove();
+                    return false;
+                } else {
+                    jQuery('.carouselGallery .carousel').show();
+                    jQuery(this).addClass('active');
+                    jQuery(this).html('<img alt="Vorschau schließen" title="Vorschau schließen" src="/typo3conf/ext/mkleipzig/Resources/Public/img/thumbnails_active.png" />Vorschau schließen');
+                    jQuery('.carouselGallery .carousel').after('<div class="carousel-arrow"></div>');
+                    return false;
+                }
+            });
+
+        } else {
+            //fancybox btn unter slider ausblenden, wenn keine galerie
+            jQuery('.jqfancybox.open').hide();
+            //carousel navigation unter slider ausblenden, wenn keine galerie
+            jQuery('.carouselGallery').hide();
+            //Klasse wenn nur 1 Bild
+            jQuery('.flexsliderGallery').addClass('onePicture');
+        }
+    });
+    // added aria-label fopr error message in easyquiz template
+    if('.leipzig-quiz-wrapper .hasError') {
+        jQ('.leipzig-quiz-wrapper .hasError').attr('aria-describedby','leipzig-quiz-error-container');
+    }
+    // add aria labels to easyquiz
+    jQ('.leipzig-quiz-list li').click(function(){
+        jQ('.quiz-input-radio').attr('aria-checked','false');
+        jQ('.quiz-input-radio').prop('checked',false);
+        if(jQ(this).find('.quiz-input').is(':checked')) {
+            jQ(this).find('.quiz-input').prop('checked',false);
+            jQ(this).find('.quiz-input').attr('aria-checked','false');
+        } else {
+            jQ(this).find('.quiz-input').prop('checked',true);
+            jQ(this).find('.quiz-input').attr('aria-checked','true');
+        }
+    });
+
+   //Cookie-Disclaimer öffnen und schließen
+   var cookiestring = document.cookie;
+   if (cookiestring.indexOf("cookie-disclaimer") == -1) {
+       jQuery("#cookie_disclaimer").toggleClass("hide");
+   }
+
+   function closeoverlay() {
+       jQuery("#cookie_disclaimer").toggleClass("hide");
+       return false;
+   }
+
+   jQuery("#cookie_disclaimer a.closebutton").click(function (event) {
+       event.preventDefault();
+       var a = new Date();
+       // 30 Tage für dauerhaftes Speichern über Browserschließen hinaus
+       a = new Date(a.getTime() + 1000 * 60 * 60 * 24 * 30);
+       document.cookie = "cookie-disclaimer=1; expires=" + a.toGMTString() + "; path=/";
+       jQuery("#cookie_disclaimer").toggleClass("hide");
+   });
+});
+
+
+jQ.fn.tooltip = function (optionen) {
+    optionen = jQ.extend({
+        zeit: 300
+    }, optionen);
+    function zeigeTooltip(evt, zeit, inhalt) {
+        jQ("<div>", {
+            id: "area_tooltip",
+            css: {
+                position: "absolute",
+                left: evt.pageX + 10,
+                top: evt.pageY + 10
+            },
+            html: inhalt
+        })
+            .appendTo("body")
+            .fadeIn(zeit);
+    }
+
+    jQ(this).each(function () {
+        var inhalt = jQ(this).attr("alt");
+        //jQ(this).attr("alt", "");
+        jQ(this).bind({
+            mouseenter: function (evt) {
+                if (jQ("#area_tooltip").css("opacity") != 0) {
+                    jQ("#area_tooltip").stop().remove();
+                }
+                zeigeTooltip(evt, optionen.zeit, inhalt);
+            },
+            mouseleave: function () {
+                jQ("#area_tooltip").fadeOut(
+                    optionen.zeit,
+                    function () {
+                        jQ(this).remove();
+                    }
+                );
+            },
+            mousemove: function (evt) {
+                jQ("#area_tooltip").css({
+                    left: evt.pageX + 10,
+                    top: evt.pageY + 10
+                });
+            }
+        });
+    });
+};
+
+function showOverlay() {
+    jQ('.dark').fadeIn(250);
+    jQ('#wrap_navi_service').css('z-index', '900');
+}
+function hideOverlay() {
+    jQ('.dark').fadeOut(250);
+    jQ('#wrap_navi_service').css('z-index', '1200');
+}
+function showNav() {
+    var el = jQ(this);
+    el.attr('aria-expanded','true')
+    el.addClass('hovered');
+    el.children('.mainsub_content').slideDown(250);
+    el.children('.mainsub_content').attr('aria-hidden','false');
+}
+function hideNav() {
+    var el = jQ(this);
+    el.removeClass('hovered');
+    el.attr('aria-expanded', 'false')
+    el.children('.mainsub_content').slideUp(250);
+    el.children('.mainsub_content').attr('aria-hidden','true')
+}
+
+// mksearch functionality
+jQ(function($){
+	// autosubmit
+	$("#sitesearch select.search-autosubmit").on(
+		"change",
+		function(){
+			$(this).parents("form").first().submit();
+		}
+	);
+	// remove filter query on new search term
+	$("#sitesearch input#search-item").on(
+		"change",
+		function(){
+			$("input[name='mksearch[NK_addfq]'][type='hidden']").val("");
+		}
+	);
+	$("#sitesearch select.search-autosubmit").on(
+			"change",
+			function(){
+				$(this).parents("form").first().submit();
+			}
+	);
+
+    initializeAutocompleteForMksearch();
+});
+
+//ausfuehren, nachdem Ajax Call abgeschlossen wurde
+jQ(document).ajaxComplete(function() {
+    hideEmptyNewsEventLists();
+    initializeAutocompleteForMksearch();
+});
+
+function initializeAutocompleteForMksearch()
+{
+    jQ(function($) {
+        $("input.search-suggest").not('.typeahead-initialized').each(function (index) {
+            var searchField = $(this);
+            searchField.addClass('typeahead-initialized');
+            var pageType = searchField.data('suggestPageType');
+            if (pageType == undefined) {
+                pageType = 540;
+            }
+            remoteUrl = "/?type=" + pageType + "&mksearch[ajax]=1&mksearch[term]=%QUERY";
+            searchSuggest = new Bloodhound(
+                {
+                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace("value"),
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    remote: {
+                        url: remoteUrl,
+                        filter: function (data) {
+                            var suggestions = [];
+                            $.each(data.suggestions, function (key, value) {
+                                $.each(value, function (key, suggestion) {
+                                    suggestions.push({value: upperCaseWords(suggestion.record.value)});
+                                });
+                            });
+                            return suggestions;
+                        }
+                    },
+                    limit: 10
+                }
+            );
+
+            searchSuggest.initialize();
+
+            searchField.typeahead(
+                {
+                    highlight: true,
+                },
+                {
+                    name: "mksearch-suggest-" + index,
+                    displayKey: "value",
+                    source: searchSuggest.ttAdapter()
+                }
+            );
+        });
+    });
+}
+
+function upperCaseWords(words) {
+    var splitStr = words.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    // Directly return the joined string
+    return splitStr.join(' ');
+}
